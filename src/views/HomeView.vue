@@ -31,9 +31,18 @@
     </div>
 
     <div v-html="texto.html"></div>
-    <div v-html="titulo"></div>
-    <!-- <div v-text="texto.script"></div> -->
+
+    <!-- Não entendi muito bem como usar -->
+    <span v-pre>{{ this will not be compiled }}</span>
+
+    <!-- Renderize o elemento e o componente apenas uma vez e ignore as atualizações futuras. -->
+    <div v-once>
+      <input type="text" v-model="cor.atual" @keydown="mudaCor()" /><br />
+    </div>
   </div>
+
+  <!-- Não entendi muito bem como usar -->
+  <div v-memo="[valueA, valueB]">...</div>
 </template>
 
 <script>
