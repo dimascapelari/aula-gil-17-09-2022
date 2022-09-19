@@ -32,17 +32,24 @@
 
     <div v-html="texto.html"></div>
 
-    <!-- Não entendi muito bem como usar -->
-    <span v-pre>{{ this will not be compiled }}</span>
+    <!-- Permite que exiba um texto dentro dos 2 bigodes -->
+    <span v-pre>{{ Permite exibição de texto dentro do double mustache }}</span>
 
     <!-- Renderize o elemento e o componente apenas uma vez e ignore as atualizações futuras. -->
-    <div v-once>
-      <input type="text" v-model="cor.atual" @keydown="mudaCor()" /><br />
+    <div>
+      <p v-once>{{ nome }}</p>
+      <p v-text="nome"></p>
+      <button @click="alteraNome">Alterar Nome</button>
     </div>
   </div>
 
   <!-- Não entendi muito bem como usar -->
   <div v-memo="[valueA, valueB]">...</div>
+
+  <!-- Oculta o conteudo até a página ser completamente carregada -->
+  <div v-cloak>
+    <h2>{{ message }}</h2>
+  </div>
 </template>
 
 <script>
@@ -61,14 +68,29 @@ export default {
       ],
       texto: {
         html: "<div><h2>Testando o v-html...</h2></div>",
-        // script:
       },
+      nome: "Dimas",
+      message: "Carregando...",
     };
   },
   methods: {
     mudaCor() {
       document.getElementById("titulo").style.color = this.cor.atual;
     },
+    alteraNome() {
+      this.nome = "Gideão";
+    },
+  },
+  mounted() {
+    setTimeout(() => {
+      this.message = "Página completamente carregada!";
+    }, "3000");
   },
 };
 </script>
+
+<style>
+[v-cloak] {
+  display: none;
+}
+</style>
